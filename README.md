@@ -5,6 +5,7 @@ OctoCode is a AI powered VSCode extension that assists in programming using Lang
 ## Features
 
 -   AI chatbot (WIP)
+![Chatbot screenshot](/img/octocode.png)
 -   Code refractoring (WIP)
 -   Testing (WIP)
 

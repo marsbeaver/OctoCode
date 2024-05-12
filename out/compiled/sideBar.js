@@ -726,7 +726,7 @@ var app = (function () {
 		};
 	}
 
-	// (32:4) {:then output}
+	// (33:4) {:then output}
 	function create_then_block(ctx) {
 		let p0;
 		let t1;
@@ -758,7 +758,7 @@ var app = (function () {
 		};
 	}
 
-	// (30:20)      <p>waiting...</p>     {:then output}
+	// (31:20)      <p>waiting...</p>     {:then output}
 	function create_pending_block(ctx) {
 		let p;
 
@@ -891,7 +891,7 @@ var app = (function () {
 			$$invalidate(2, finPrompt = prompt);
 		}
 
-		async function getAi(data) {
+		async function getAi() {
 			const response = await fetch("https://api-inference.huggingface.co/models/meta-llama/Meta-Llama-3-8B-Instruct", {
 				headers: {
 					"Content-Type": "application/json",

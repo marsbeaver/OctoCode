@@ -1,6 +1,7 @@
 <script>
     
     import { onMount } from "svelte";
+
     import snarkdown from 'snarkdown'
     let promise = 'nothing';
     let prompt = '';
@@ -8,7 +9,7 @@
     function registerPrompt(){
         finPrompt = prompt;
     }
-    async function getAi (data){
+    async function getAi (){
         const response = await fetch(
             "https://api-inference.huggingface.co/models/meta-llama/Meta-Llama-3-8B-Instruct",
             {
