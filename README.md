@@ -11,11 +11,15 @@ OctoCode is a AI powered VSCode extension that assists in programming using Lang
 
 ## Requirements
 
-run
+To download dependencies:
 
 `npm i`
 
-Before running extension code
+In order to test the extension, run the following:
+
+`npm run watch`
+
+Open src/extension.ts and press Ctrl+f5
 
 ## Extension Settings
 
