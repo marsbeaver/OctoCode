@@ -35,6 +35,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.deactivate = exports.activate = void 0;
 const vscode = __importStar(__webpack_require__(/*! vscode */ "vscode"));
+//import { MyCompletionProvider } from './MyCompletionProvider';
 class SideBar {
     _extensionUri;
     _view;
@@ -64,22 +65,27 @@ class SideBar {
 			<link href=${css_file} rel='stylesheet'>
 			</head>
 			<body>
-
 			</body>
-			<script>
-			
-			console.log('works');
-			</script>
 			<script src=${js_file} type="module"
 			</html>
 			`;
     }
 }
 async function activate(context) {
+    const languages = ['javascript', 'typescript', 'python'];
     context.subscriptions.push(vscode.window.registerWebviewViewProvider('chat-box', new SideBar(context.extensionUri)));
-    context.subscriptions.push(vscode.commands.registerCommand('octocode.helloWorld', () => {
-        vscode.window.showInformationMessage('asdlsa');
-    }));
+    languages.forEach(language => {
+        const provider = vscode.languages.registerInlineCompletionItemProvider(language, {
+            provideInlineCompletionItems(document, position) {
+                const completionItems = [];
+                const textBeforeCursor = document.getText(new vscode.Range(new vscode.Position(0, 0), position));
+                const printCompletion = new vscode.InlineCompletionItem(textBeforeCursor);
+                completionItems.push(printCompletion);
+                return completionItems;
+            }
+        });
+        context.subscriptions.push(provider);
+    });
 }
 exports.activate = activate;
 function deactivate() {

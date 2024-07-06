@@ -9,9 +9,32 @@
   "categories": [
     "Other"
   ],
-  "activationEvents": [],
+  "activationEvents": [
+    "onLanguage:python"
+  ],
   "main": "./dist/extension.js",
   "contributes": {
+    "languages": [
+      {
+        "id":"python",
+        "extensions": [
+          ".py"
+        ],
+        "aliases": ["Python"]
+      }
+    ],
+    "grammars": [
+      {
+        "language": "python",
+        "scopeName": "source.python",
+        "path": "./syntaxes/python.tmLanguage.json"
+      }
+    ],
+    "configurationDefaults": {
+      "[python]": {
+        "editor.wordBasedSuggestions": "off"
+      }
+    },
     "commands": [
       {
         "command": "octocode.helloWorld",
@@ -32,7 +55,7 @@
         {
           "id": "chatView",
           "title": "OctoChat",
-          "icon": "menu-burger.svg"
+          "icon": "img/octopus.png"
         }
       ]
     },

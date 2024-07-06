@@ -1,21 +1,25 @@
 <script>
     
-    import { onMount } from "svelte";
-
     import snarkdown from 'snarkdown'
     let promise = 'nothing';
     let prompt = '';
     let finPrompt;
+    let page = false;
+    let api_key = '';
+    let model_url = '';
     function registerPrompt(){
         finPrompt = prompt;
     }
+    function registerApi(){
+        page=true;
+    }
     async function getAi (){
         const response = await fetch(
-            "https://api-inference.huggingface.co/models/meta-llama/Meta-Llama-3-8B-Instruct",
+            `${model_url}`,
             {
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": `Bearer `,
+                    "Authorization": `Bearer ${api_key}`,
                 },
                 method: "POST",
                 body: JSON.stringify({"inputs": `${prompt}`})
@@ -24,21 +28,23 @@
         promise = await response.json();
         
     };
+    
 </script>
 
 <div class="container">
-    <p>Your prompt: {finPrompt||'None'}</p>
-    {#await promise}
-    <p>waiting...</p>
-    {:then output}
-    <p>Reponse: </p>
-    <p>{@html snarkdown(output[0]['generated_text']||'Enter a prompt')}</p>
-    {:catch error}
-    <p>{error.message}</p>
-    {/await}
-    
-    <input class="chatBox" type="text" id="txt" placeholder="Enter prompt" bind:value={prompt} />
-    <button class="send" id="send_button" on:click={()=>{getAi();registerPrompt();}}>Send</button>
+    {#if !page}
+        <p>Welcome to Octocode!</p>
+        <div class="chatBox">
+            <input type="text" id="api_key" placeholder="Enter Model Url:" bind:value={model_url} />
+            <input type="text" id="api_key" placeholder="Enter authentication key:" bind:value={api_key} />
+        </div>
+        <button class="send" id="send_button" on:click={()=>{registerApi();}}>Send</button>
+    {:else}
+        <p>Your prompt:<br/> {finPrompt||'None'}</p>
+        <p>{@html snarkdown(promise[0]['generated_text']||'Enter a prompt')}</p>
+        <input class="chatBox" type="text" id="txt" placeholder="Enter prompt" bind:value={prompt} />
+        <button class="send" id="send_button" on:click={()=>{getAi();registerPrompt();}}>Send</button>
+    {/if}
 </div>
 
 <style>

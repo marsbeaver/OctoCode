@@ -27,5 +27,8 @@ Before running extension code
 ## Release Notes
 
 
-## Following extension guidelines
+## Image credit
+
+Octopus icon:
+<a href="https://www.flaticon.com/free-icons/octopus" title="octopus icons">Octopus icons created by Freepik - Flaticon</a>
 
